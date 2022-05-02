@@ -11,16 +11,16 @@
     <div class="container">
         <div class="inputContainer">
             <h1>Total de km de ida e volta</h1>
-            <input id="idaVolta" type="number" placeholder="Digite" required>
+            <input oninput="mascara(this, 'km')" id="idaVolta" type="text" placeholder="km" required>
             <h1>Valor de cada Litro do combustivel</h1>
-            <input id="litrosCombus" type="number"placeholder="Digite" required>
+            <input id="litrosCombus" type="text"placeholder="R$ 0,00" required>
             <h1>Quantos Km/L o carro faz?</h1>
-            <input id="kmL" type="number"placeholder="Digite" required>
+            <input oninput="mascara(this, 'kmLitros')" id="kmL" type="text"placeholder="km/l" required>
         </div>
         
         <div class="outputContainer">
             <h1>Valor total que será gasto em Combustivel</h1>
-            <h1 id="res">0</h1>
+            <h1 id="res">R$ 0,00</h1>
         </div>
 
         <div class="botao">
