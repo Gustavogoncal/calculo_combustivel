@@ -9,8 +9,12 @@ body{
     margin-top: 2em;
     width: 18em;
 }
+.titulo{
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 0.5em;
+}
 .inputContainer,.outputContainer{
-    /* height: 20em; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,14 +24,23 @@ body{
     border-radius: 10px;
 }
 .inputContainer{
-    height: 30em;
     background-color: #264653;
     margin-bottom: 1em;
     padding: 1em;
 }
+.inputContainer label{
+    color: white;
+    font-size: 1.17em;
+    font-weight: bold;
+    margin: 0.8em 0 0.4em;
+}
 .outputContainer{
     background-color: white;
     padding: 1em;
+}
+.outputContainer .rotulo{
+    font-size: 1.17em;
+    font-weight: bold;
 }
 input{
     background-color: #264653;
@@ -36,6 +49,11 @@ input{
     font-size: 2em;
     text-align: center;
     border: none;
+    color: white;
+    border-radius: 6px;
+}
+input.campo-invalido{
+    box-shadow: 0 0 0 2px #e76f51;
 }
 .botao{
     padding: 2em;
@@ -54,4 +72,10 @@ h1{
 
 #res{
     margin-top: 20px;
+}
+
+.erro{
+    color: #e76f51;
+    font-size: 0.9em;
+    margin-top: 0.5em;
 }

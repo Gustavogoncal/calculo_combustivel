@@ -4,29 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cálculo de Combustível</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <div class="inputContainer">
-            <h1>Total de km de ida e volta</h1>
-            <input oninput="mascara(this, 'km')" id="idaVolta" type="tel" placeholder="km" required>
-            <h1>Valor de cada Litro do combustivel</h1>
-            <input id="litrosCombus" type="tel"placeholder="R$ 0,00" required>
-            <h1>Quantos Km/L o carro faz?</h1>
-            <input oninput="mascara(this, 'kmLitros')" id="kmL" type="tel"placeholder="km/l" required>
-        </div>
-        
-        <div class="outputContainer">
-            <h1>Valor total que será gasto em Combustivel</h1>
-            <h1 id="res">R$ 0,00</h1>
-        </div>
+        <h1 class="titulo">Cálculo de Combustível</h1>
 
-        <div class="botao">
-        <button onclick="calcular()">Calcular</button>
-        </div>
-        
+        <form id="calcForm">
+            <div class="inputContainer">
+                <label for="idaVolta">Total de km de ida e volta</label>
+                <input oninput="mascaraKm(this)" id="idaVolta" type="tel" inputmode="numeric" placeholder="km">
+
+                <label for="litrosCombus">Valor de cada litro do combustível</label>
+                <input oninput="mascaraDecimal(this)" id="litrosCombus" type="tel" inputmode="numeric" placeholder="R$ 0,00">
+
+                <label for="kmL">Quantos km/L o carro faz?</label>
+                <input oninput="mascaraDecimal(this)" id="kmL" type="tel" inputmode="numeric" placeholder="km/l">
+            </div>
+
+            <div class="outputContainer">
+                <span class="rotulo">Valor total que será gasto em combustível</span>
+                <h1 id="res">R$ 0,00</h1>
+                <p id="erro" class="erro" aria-live="polite"></p>
+            </div>
+
+            <div class="botao">
+                <button type="submit">Calcular</button>
+            </div>
+        </form>
     </div>
     <script src="index.js"></script>
 </body>

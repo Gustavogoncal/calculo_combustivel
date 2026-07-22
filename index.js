@@ -3,38 +3,69 @@ let inputLitrosCombus = document.getElementById("litrosCombus")
 let inputKmL = document.getElementById("kmL")
 
 let resultado = document.getElementById("res")
+let erro = document.getElementById("erro")
 
-function calcular(){
-    console.log("Calculando...")
+document.getElementById("calcForm").addEventListener("submit", function (e) {
+    e.preventDefault()
+    calcular()
+})
 
-    let idaVolta = parseFloat(inputIdaVolta.value)
-    let litrosCombus = parseFloat(inputLitrosCombus.value)
-    let kmL = parseFloat(inputKmL.value)
-
-    let calculo = (idaVolta / kmL) * litrosCombus
-
-    resultado.innerHTML = (calculo).toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })
-    
+function parseNumeroBR(valor) {
+    if (!valor) return NaN
+    return parseFloat(valor.replace(",", "."))
 }
 
-function mascara(i, t){
+function calcular() {
+    let idaVolta = parseNumeroBR(inputIdaVolta.value)
+    let litrosCombus = parseNumeroBR(inputLitrosCombus.value)
+    let kmL = parseNumeroBR(inputKmL.value)
 
-    var v = i.value
+    let campos = [
+        { input: inputIdaVolta, valor: idaVolta },
+        { input: inputLitrosCombus, valor: litrosCombus },
+        { input: inputKmL, valor: kmL },
+    ]
 
-    if(isNaN(v[v.length-1])){
-        i.value = v.substring(0,v.length-1)
+    let algumInvalido = false
+    campos.forEach(function (campo) {
+        let invalido = !campo.valor || campo.valor <= 0
+        campo.input.classList.toggle("campo-invalido", invalido)
+        if (invalido) algumInvalido = true
+    })
+
+    if (algumInvalido) {
+        erro.textContent = "Preencha todos os campos com valores maiores que zero."
+        resultado.textContent = "R$ 0,00"
         return
     }
 
-    if(t == "km"){
-        i.setAttribute("maxlength", 4)
+    erro.textContent = ""
+
+    let calculo = (idaVolta / kmL) * litrosCombus
+
+    resultado.textContent = calculo.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })
+}
+
+// Mantém apenas números inteiros (ex.: total de km)
+function mascaraKm(input) {
+    input.classList.remove("campo-invalido")
+    let digitos = input.value.replace(/\D/g, "").slice(0, 5)
+    input.value = digitos
+}
+
+// Formata como número decimal com vírgula, preenchendo da direita para a esquerda (ex.: preço, km/L)
+function mascaraDecimal(input) {
+    input.classList.remove("campo-invalido")
+    let digitos = input.value.replace(/\D/g, "").slice(0, 6)
+
+    if (digitos === "") {
+        input.value = ""
+        return
     }
 
-    if(t == "valor"){
-        i.setAttribute("maxlength", 2)
-    }
+    digitos = digitos.padStart(3, "0")
+    let parteInteira = digitos.slice(0, -2).replace(/^0+(?=\d)/, "")
+    let parteDecimal = digitos.slice(-2)
 
-    if(t == "kmLitros"){
-        i.setAttribute("maxlength", 2)
-    }
+    input.value = parteInteira + "," + parteDecimal
 }
